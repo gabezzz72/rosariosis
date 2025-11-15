@@ -5,11 +5,9 @@ FROM php:8.1-apache
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Install system dependencies
-# gettext-base is for 'envsubst' which is used in the entrypoint
 # postgresql-client is for 'psql'
 # libpq-dev, libgd-dev, libintl, etc., are for PHP extensions
 RUN apt-get update && apt-get install -y \
-    gettext-base \
     postgresql-client \
     libpq-dev \
     libgd-dev \
@@ -63,14 +61,9 @@ RUN if [ "$ROSARIOSIS_VERSION" = "master" ]; then \
     fi \
     && composer install --no-dev --no-interaction
 
-# Copy the config template and entrypoint script
-# Ensure they are executable
-COPY config.inc.sample.php .
-COPY entrypoint.sh /
-RUN chmod +x /entrypoint.sh
+# Copy your pre-configured config file directly into the image
+# This requires 'config.inc.php' to exist in your GitHub repo root
+COPY config.inc.php .
 
-# Set the entrypoint
-ENTRYPOINT ["/entrypoint.sh"]
-
-# Default command to run Apache
+# Default command to run Apache (no entrypoint script needed)
 CMD ["apache2-foreground"]
