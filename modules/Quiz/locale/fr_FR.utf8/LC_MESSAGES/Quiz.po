@@ -1,0 +1,244 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Quiz module for RosarioSIS\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-07 18:57+0100\n"
+"PO-Revision-Date: 2025-01-07 18:58+0100\n"
+"Last-Translator: François Jacquet <info@rosariosis.org>\n"
+"Language-Team: RosarioSIS <info@rosariosis.org>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-KeywordsList: ;dgettext:2;dngettext:2\n"
+"X-Poedit-Basepath: ../../..\n"
+"X-Generator: Poedit 3.2.2\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: Menu.php:15 Menu.php:19 Menu.php:36 Menu.php:44 Quizzes.php:214
+#: functions.php:88 functions.php:154 functions.php:187
+#: includes/Questions.fnc.php:442 includes/Questions.fnc.php:480
+#: includes/Quizzes.fnc.php:304 includes/Quizzes.fnc.php:596
+#: includes/StudentQuizzes.fnc.php:1037
+#, fuzzy
+#| msgid "Quiz"
+#| msgid_plural "Quizzes"
+msgid "Quiz"
+msgstr "Quiz"
+
+#: Menu.php:21 Menu.php:38 Menu.php:46 functions.php:26
+#: includes/Questions.fnc.php:374 includes/Questions.fnc.php:448
+#: includes/Quizzes.fnc.php:597 includes/StudentQuizzes.fnc.php:1038
+msgid "Quizzes"
+msgstr "Quiz"
+
+#: Menu.php:22 Menu.php:39 includes/Questions.fnc.php:649
+#: includes/Quizzes.fnc.php:585
+msgid "Questions"
+msgstr "Questions"
+
+#: Menu.php:28
+msgid "Premium"
+msgstr ""
+
+#: Menu.php:30
+msgid "Answer Breakdown"
+msgstr "Répartition des réponses"
+
+#: Questions.php:190 Quizzes.php:203 includes/Questions.fnc.php:151
+#: includes/Questions.fnc.php:604 includes/Questions.fnc.php:648
+#: includes/Quizzes.fnc.php:584
+msgid "Question"
+msgstr "Question"
+
+#: Questions.php:204 includes/Questions.fnc.php:636
+msgid "Question Category"
+msgstr "Catégorie de questions"
+
+#: Questions.php:262
+msgid "New Question"
+msgstr "Nouvelle question"
+
+#: Questions.php:270
+msgid "New Question Category"
+msgstr "Nouvelle catégorie de questions"
+
+#: Quizzes.php:234 StudentQuizzes.php:50
+msgid "Back to Quizzes"
+msgstr "Retour aux quiz"
+
+#: Quizzes.php:312 functions.php:44
+msgid "New Quiz"
+msgstr "Nouveau quiz"
+
+#: StudentQuizzes.php:39
+msgid "Quiz submitted."
+msgstr "Quiz répondu."
+
+#: functions.php:164 includes/StudentQuizzes.fnc.php:1300
+msgid "You already have graded this Quiz."
+msgstr "Vous avez déjà noté ce quiz."
+
+#: functions.php:180
+msgid "Grade Quiz"
+msgstr "Noter le quiz"
+
+#: includes/Questions.fnc.php:451
+#, php-format
+msgid "Quizzes already contain this question. Please add a new Quiz: %s"
+msgstr ""
+"Les quiz contiennent déjà cette question. Merci d'ajouter un nouveau quiz : "
+"%s"
+
+#: includes/Questions.fnc.php:504
+msgid "Add Question"
+msgstr "Ajouter la question"
+
+#: includes/Questions.fnc.php:637
+msgid "Question Categories"
+msgstr "Catégories de questions"
+
+#: includes/Questions.fnc.php:680 includes/Quizzes.fnc.php:631
+msgid "Select One from Options"
+msgstr "Options à choix simple"
+
+#: includes/Questions.fnc.php:682 includes/Quizzes.fnc.php:633
+msgid "Gap Fill"
+msgstr "Texte à trous"
+
+#: includes/Questions.fnc.php:729 includes/Questions.fnc.php:737
+msgid "Mark correct answer with an asterisk *."
+msgstr "Marquer les réponse correctes d'une astérisque *."
+
+#: includes/Questions.fnc.php:732
+msgid ""
+"*True\n"
+"False"
+msgstr ""
+"*Vrai\n"
+"Faux"
+
+#: includes/Questions.fnc.php:742
+msgid ""
+"*Correct option #1\n"
+"Wrong option #2\n"
+"Wrong option #3\n"
+"*Correct option #4"
+msgstr ""
+"*Choix correct #1\n"
+"Choix incorrect #2\n"
+"Choix incorrect #3\n"
+"*Choix correct #4"
+
+#: includes/Questions.fnc.php:747
+msgid "Text with gaps"
+msgstr "Texte à trous"
+
+#: includes/Questions.fnc.php:748
+msgid "Delimit gaps with double underscores __"
+msgstr "Délimiter les trous par deux tirets bas __"
+
+#: includes/Questions.fnc.php:751
+msgid ""
+"The sky is __blue__.\n"
+"The grass is __green__."
+msgstr ""
+"Le ciel est __bleu__.\n"
+"L'herbe est __verte__."
+
+#: includes/Questions.fnc.php:754
+msgid "Answer"
+msgstr "Réponse"
+
+#: includes/Questions.fnc.php:756
+msgid "Correct answer (optional)."
+msgstr "Réponse correcte (optionnel)."
+
+#: includes/Quizzes.fnc.php:292
+#, php-format
+msgid "No Assignments are available. Please add a new Assignment: %s"
+msgstr "Aucun devoir disponible. Merci d'ajouter un nouveau devoir : %s"
+
+#: includes/Quizzes.fnc.php:373
+msgid "Show Correct Answers"
+msgstr "Afficher les réponses correctes"
+
+#: includes/Quizzes.fnc.php:382
+msgid "Random Question Order"
+msgstr "Ordre des questions aléatoire"
+
+#: includes/StudentQuizzes.fnc.php:43 includes/StudentQuizzes.fnc.php:366
+msgid "Submissions for this quiz are closed."
+msgstr "Il n'est plus possible de répondre à ce quiz."
+
+#: includes/StudentQuizzes.fnc.php:1027
+msgid "Answered"
+msgstr "Répondu"
+
+#: includes/StudentQuizzes.fnc.php:1153
+msgid "Answers"
+msgstr "Réponses"
+
+#: includes/UpsellPremium.inc.php:35
+#, php-format
+msgid "This program is available in the %s module."
+msgstr "Ce programme est disponible dans le module %s."
+
+#: includes/UpsellPremium.inc.php:37
+msgid "Quiz Premium"
+msgstr "Quiz Premium"
+
+#~ msgid "You are not allowed to access this quiz."
+#~ msgstr "Vous n'êtes pas autorisé a accéder à ce quiz."
+
+#~ msgid "Submit Quiz"
+#~ msgstr "Soumettre le quiz"
+
+#~ msgid "You alreay have graded this Quiz."
+#~ msgstr "Vous avez déjà noté ce Quiz."
+
+#~ msgid "Add New Quiz"
+#~ msgstr "Ajouter un Nouveau Quiz"
+
+#~ msgid "Quizzes already contain this question."
+#~ msgstr "Les quiz contiennent déjà cette question."
+
+#~ msgid "Answer (optional)."
+#~ msgstr "Réponse (optionnel)."
+
+#~ msgid "# of Students"
+#~ msgstr "# d'Élèves"
+
+#~ msgid "# of Administrators"
+#~ msgstr "# d'Administrateurs"
+
+#~ msgid "# of Teachers"
+#~ msgstr "# de Professeurs"
+
+#~ msgid "# of Parents"
+#~ msgstr "# de Parents"
+
+#~ msgid "Create Subject PDF for Selected Students"
+#~ msgstr "Créer le PDF Matière pour les Élèves Sélectionnés"
+
+#~ msgid "Quiz Widget"
+#~ msgstr "Widget Exemple"
+
+#~ msgid "Setup"
+#~ msgstr "Paramétrage"
+
+#~ msgid "Quiz Resource"
+#~ msgstr "Ressource Exemple"
+
+#~ msgid "The configuration value has been modified."
+#~ msgstr "La valeur de configuration a été modifiée."
+
+#~ msgid "Quiz module Setup"
+#~ msgstr "Paramétrage du Module Exemple"
+
+#~ msgid "Try to enter a non-numeric value"
+#~ msgstr "Essayez d'entrer une valuer non-numérique"
+
+#~ msgid "Quiz config value label"
+#~ msgstr "Exemple de nom de valeur de config"

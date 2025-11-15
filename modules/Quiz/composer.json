@@ -1,0 +1,26 @@
+{
+    "name": "francoisjacquet/quiz",
+    "description": "Quiz module for RosarioSIS. Teachers can add questions and answers to the questions database, and then add them their quizzes. Students take their tests / quizzes online.",
+    "keywords": ["quiz", "questions", "answers", "test", "student", "teacher", "evaluation", "assignment"],
+    "homepage": "https://www.rosariosis.org/modules/quiz/",
+    "license": "GPL-2.0-or-later",
+    "authors": [{
+        "name": "François Jacquet"
+    }],
+    "type": "rosariosis-module",
+    "version": "11.3",
+    "time": "2025-08-25",
+    "require": {
+        "php": ">=5.5.9"
+    },
+    "extra": {
+        "require": {
+            "francoisjacquet/rosariosis": ">=6.8"
+        },
+        "self_url": "https://gitlab.com/francoisjacquet/Quiz/raw/master/composer.json"
+    },
+    "_comment": [
+        "https://getcomposer.org/doc/04-schema.md",
+        "https://wp-kama.com/note/package-versions-in-composer-json"
+    ]
+}
