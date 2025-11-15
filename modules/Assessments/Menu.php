@@ -8,8 +8,8 @@
  */
 
 // Add the "Assessments" program to the Students module.
-// The key here MUST match the file path from the modules/ directory.
-$menu['Students']['admin']['Assessments/Assessments.php'] = [
+// FIX: The key here MUST be the filename only.
+$menu['Students']['admin']['Assessments.php'] = [
 	'title' => _( 'Assessments' ),
 	'gpa' => '0', // Not used in GPA calculations.
 	'modules' => 'Students', // Belongs to the Students module.
@@ -21,8 +21,8 @@ $menu['Students']['admin']['Assessments/Assessments.php'] = [
 ];
 
 // Add permissions for the Assessments program.
-// The key here MUST also match the file path.
-$exceptions['Assessments/Assessments.php'] = [
+// FIX: The key here MUST also be the filename only.
+$exceptions['Assessments.php'] = [
 	'C' => '1', // C for Create (add new).
 	'R' => '1', // R for Read (view).
 	'U' => '1', // U for Update (edit).
