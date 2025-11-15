@@ -9,9 +9,10 @@
  */
 
 // Main entry point.
-require_once 'ProgramFunctions/DrawHeader.f.php';
-require_once 'ProgramFunctions/program_init.f.php';
-require_once 'ProgramFunctions/SearchForm.f.php';
+// FIX: Use relative paths to go up two directories to the webroot.
+require_once '../../ProgramFunctions/DrawHeader.f.php';
+require_once '../../ProgramFunctions/program_init.f.php';
+require_once '../../ProgramFunctions/SearchForm.f.php';
 
 // Ensure a student is selected.
 if ( empty( $_REQUEST['student_id'] ) )
