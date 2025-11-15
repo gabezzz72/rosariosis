@@ -4,9 +4,11 @@ FROM php:8.1-apache
 # Set shell for subsequent RUN commands
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+# Set version to download
+# You can change "master" to a specific version tag like "10.9.3"
+ARG ROSARIOSIS_VERSION=custom-rosario
+
 # Install system dependencies
-# postgresql-client is for 'psql'
-# libpq-dev, libgd-dev, gettext, etc., are for PHP extensions
 RUN apt-get update && apt-get install -y \
     postgresql-client \
     libpq-dev \
@@ -16,6 +18,7 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     zlib1g-dev \
     unzip \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Install required PHP extensions
@@ -48,17 +51,25 @@ EXPOSE 8080
 # Set the working directory
 WORKDIR /var/www/html
 
-# Install Composer
+# --- NEW STRATEGY ---
+# 1. Download and unzip the core RosarioSIS application
+RUN curl -fsSL "https://github.com/francoisjacquet/rosariosis/archive/${ROSARIOSIS_VERSION}.zip" -o rosariosis.zip \
+    && unzip rosariosis.zip \
+    && mv rosariosis-${ROSARIOSIS_VERSION}/* rosariosis-${ROSARIOSIS_VERSION}/.[!.]* . \
+    && rm -rf rosariosis-${ROSARIOSIS_VERSION} rosariosis.zip
+
+# 2. Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy ALL application files from your repository into the image
-# This includes your pre-configured config.inc.php and composer.json
+# 3. Copy YOUR files (config, custom module) over the core files
+# This will overwrite the default config.inc.sample.php
+# and add your modules/Assessments directory
 COPY . .
 
-# Run composer install to get PHP dependencies
+# 4. Run composer install
 RUN composer install --no-dev --no-interaction
 
-# FIX: Set correct permissions for the Apache user
+# 5. Set correct permissions for the Apache user
 RUN chown -R www-data:www-data /var/www/html/
 
 # Default command to run Apache
