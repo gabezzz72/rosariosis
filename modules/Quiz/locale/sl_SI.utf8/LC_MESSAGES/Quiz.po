@@ -1,0 +1,315 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Quiz module for RosarioSIS\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-04-22 18:25+0200\n"
+"PO-Revision-Date: 2024-04-22 18:25+0200\n"
+"Last-Translator: François Jacquet <info@rosariosis.org>\n"
+"Language-Team: RosarioSIS <info@rosariosis.org>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-KeywordsList: ;dgettext:2;dngettext:2\n"
+"X-Poedit-Basepath: ../../..\n"
+"X-Generator: Poedit 3.2.2\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: Menu.php:15 Menu.php:19 Menu.php:27 Menu.php:35 Quizzes.php:199
+#: functions.php:88 functions.php:154 functions.php:187
+#: includes/Questions.fnc.php:441 includes/Questions.fnc.php:479
+#: includes/Quizzes.fnc.php:312 includes/Quizzes.fnc.php:601
+#: includes/StudentQuizzes.fnc.php:1037
+#, fuzzy
+#| msgid "Quiz"
+#| msgid_plural "Quizzes"
+msgid "Quiz"
+msgstr "Kviz"
+
+#: Menu.php:21 Menu.php:29 Menu.php:37 functions.php:26
+#: includes/Questions.fnc.php:373 includes/Questions.fnc.php:447
+#: includes/Quizzes.fnc.php:602 includes/StudentQuizzes.fnc.php:1038
+msgid "Quizzes"
+msgstr "Kvizi"
+
+#: Menu.php:22 Menu.php:30 includes/Questions.fnc.php:662
+#: includes/Quizzes.fnc.php:590
+msgid "Questions"
+msgstr "Vprašanja"
+
+#: Questions.php:176 Quizzes.php:188 includes/Questions.fnc.php:150
+#: includes/Questions.fnc.php:617 includes/Questions.fnc.php:661
+#: includes/Quizzes.fnc.php:589
+msgid "Question"
+msgstr "Vprašanje"
+
+#: Questions.php:190 includes/Questions.fnc.php:649
+msgid "Question Category"
+msgstr "Kategorija"
+
+#: Questions.php:246
+msgid "New Question"
+msgstr "Novo Vprašanje"
+
+#: Questions.php:254
+msgid "New Question Category"
+msgstr "Nova Kategorija Vprašanj"
+
+#: Quizzes.php:219 StudentQuizzes.php:50
+msgid "Back to Quizzes"
+msgstr "Nazaj na kvize"
+
+#: Quizzes.php:297 functions.php:44
+msgid "New Quiz"
+msgstr "Nov Kviz"
+
+#: StudentQuizzes.php:39
+msgid "Quiz submitted."
+msgstr "Kviz poslan."
+
+#: functions.php:164 includes/StudentQuizzes.fnc.php:1308
+msgid "You already have graded this Quiz."
+msgstr "Ta kviz ste že ocenili."
+
+#: functions.php:180
+msgid "Grade Quiz"
+msgstr "Oceni Kviz"
+
+#: includes/Questions.fnc.php:450
+#, php-format
+msgid "Quizzes already contain this question. Please add a new Quiz: %s"
+msgstr "Kvizi že vsebujejo to vprašanje. Dodajte novo vprašanje: %s"
+
+#: includes/Questions.fnc.php:519
+msgid "Add Question"
+msgstr "Dodaj Vprašanje"
+
+#: includes/Questions.fnc.php:650
+msgid "Question Categories"
+msgstr "Kategorije Vprašanj"
+
+#: includes/Questions.fnc.php:693 includes/Quizzes.fnc.php:636
+msgid "Select One from Options"
+msgstr "Izberite opcijo"
+
+#: includes/Questions.fnc.php:695 includes/Quizzes.fnc.php:638
+msgid "Gap Fill"
+msgstr "Zapolnitev vrzeli"
+
+#: includes/Questions.fnc.php:742 includes/Questions.fnc.php:750
+msgid "Mark correct answer with an asterisk *."
+msgstr "Pravilen odgovor označi z zvezdico *."
+
+#: includes/Questions.fnc.php:745
+msgid ""
+"*True\n"
+"False"
+msgstr ""
+"*Pravilno\n"
+"Napačno"
+
+#: includes/Questions.fnc.php:755
+msgid ""
+"*Correct option #1\n"
+"Wrong option #2\n"
+"Wrong option #3\n"
+"*Correct option #4"
+msgstr ""
+"*Pravilna možnost #1\n"
+"Napačna možnost št. 2\n"
+"Napačna možnost št. 3\n"
+"*Pravilna možnost št. 4"
+
+#: includes/Questions.fnc.php:760
+msgid "Text with gaps"
+msgstr "Besedilo z vrzelmi"
+
+#: includes/Questions.fnc.php:761
+msgid "Delimit gaps with double underscores __"
+msgstr "Vrzeli razmejite z dvojnimi podčrtaji __"
+
+#: includes/Questions.fnc.php:764
+msgid ""
+"The sky is __blue__.\n"
+"The grass is __green__."
+msgstr ""
+"Nebo je modro__.\n"
+"Trava je __zelena__."
+
+#: includes/Questions.fnc.php:767
+msgid "Answer"
+msgstr "Odgovor"
+
+#: includes/Questions.fnc.php:769
+msgid "Correct answer (optional)."
+msgstr "Pravilen odgovor (neobvezno)."
+
+#: includes/Quizzes.fnc.php:300
+#, php-format
+msgid "No Assignments are available. Please add a new Assignment: %s"
+msgstr "Na voljo ni nobena dodelitev. Dodajte novo nalogo: %s"
+
+#: includes/Quizzes.fnc.php:378
+msgid "Show Correct Answers"
+msgstr "Prikaži pravilne odgovore"
+
+#: includes/Quizzes.fnc.php:387
+msgid "Random Question Order"
+msgstr "Naključni vrstni red vprašanj"
+
+#: includes/StudentQuizzes.fnc.php:43 includes/StudentQuizzes.fnc.php:366
+msgid "Submissions for this quiz are closed."
+msgstr "Oddaje za ta kviz so zaključene."
+
+#: includes/StudentQuizzes.fnc.php:1027
+msgid "Answered"
+msgstr "Odgovorjeno"
+
+#: includes/StudentQuizzes.fnc.php:1153
+msgid "Answers"
+msgstr "Odgovori"
+
+#~ msgid "Please fill in the required fields"
+#~ msgstr "Prosimo izpolnite zahtevana polja"
+
+#~ msgid "Please enter valid Numeric data."
+#~ msgstr "Vnesite veljavne številske podatke."
+
+#~ msgid "Delete"
+#~ msgstr "Izbriši"
+
+#~ msgid "Type"
+#~ msgstr "Tip"
+
+#~ msgid "Description"
+#~ msgstr "Opis"
+
+#~ msgid "Category"
+#~ msgstr "Kategorija"
+
+#~ msgid "Sort Order"
+#~ msgstr "Razvrsti"
+
+#~ msgid "Title"
+#~ msgstr "Naslov"
+
+#~ msgid "Teacher"
+#~ msgstr "Vzgojitelj"
+
+#~ msgid "Date"
+#~ msgstr "Datum"
+
+#, php-format
+#~ msgid "No %s were found."
+#~ msgstr "%s niso bili najdeni."
+
+#~ msgid "Points"
+#~ msgstr "Točke"
+
+#~ msgid "Select Multiple from Options"
+#~ msgstr "Izberite več Možnosti"
+
+#~ msgid "Text"
+#~ msgstr "Tekst"
+
+#~ msgid "Long Text"
+#~ msgstr "Dolgo besedilo"
+
+#~ msgid "Options"
+#~ msgstr "Opcije"
+
+#~ msgid "One per line"
+#~ msgstr "Eno na vrstico"
+
+#~ msgid "Assignment"
+#~ msgstr "Naloga"
+
+#~ msgid "Preview"
+#~ msgstr "Predogled"
+
+#~ msgid "Grades"
+#~ msgstr "Ocene"
+
+#~ msgid "Assignments"
+#~ msgstr "Naloge"
+
+#~ msgid "Total"
+#~ msgstr "Skupaj"
+
+#~ msgid "You are not allowed to access this quiz."
+#~ msgstr "Nimate dovoljenja za dostop do tega kviza."
+
+#~ msgid "Due Date"
+#~ msgstr "Do Datuma"
+
+#~ msgid "Assigned Date"
+#~ msgstr "Dodeljeni Datum"
+
+#~ msgid "Course Title"
+#~ msgstr "Naslov"
+
+#~ msgid "File"
+#~ msgstr "Datoteka"
+
+#~ msgid "Submit Quiz"
+#~ msgstr "Potrdi Kviz"
+
+#~ msgid "View Online"
+#~ msgstr "Ogled na spletu"
+
+#~ msgid "Download"
+#~ msgstr "Prenesi"
+
+#~ msgid "Grade"
+#~ msgid_plural "Grades"
+#~ msgstr[0] "Ocena"
+#~ msgstr[1] "Ocene"
+
+#~ msgid "You alreay have graded this Quiz."
+#~ msgstr "Vous avez déjà noté ce Quiz."
+
+#~ msgid "Add New Quiz"
+#~ msgstr "Ajouter un Nouveau Quiz"
+
+#~ msgid "Quizzes already contain this question."
+#~ msgstr "Les quiz contiennent déjà cette question."
+
+#~ msgid "Answer (optional)."
+#~ msgstr "Réponse (optionnel)."
+
+#~ msgid "# of Students"
+#~ msgstr "# d'Élèves"
+
+#~ msgid "# of Administrators"
+#~ msgstr "# d'Administrateurs"
+
+#~ msgid "# of Teachers"
+#~ msgstr "# de Professeurs"
+
+#~ msgid "# of Parents"
+#~ msgstr "# de Parents"
+
+#~ msgid "Create Subject PDF for Selected Students"
+#~ msgstr "Créer le PDF Matière pour les Élèves Sélectionnés"
+
+#~ msgid "Quiz Widget"
+#~ msgstr "Widget Exemple"
+
+#~ msgid "Setup"
+#~ msgstr "Paramétrage"
+
+#~ msgid "Quiz Resource"
+#~ msgstr "Ressource Exemple"
+
+#~ msgid "The configuration value has been modified."
+#~ msgstr "La valeur de configuration a été modifiée."
+
+#~ msgid "Quiz module Setup"
+#~ msgstr "Paramétrage du Module Exemple"
+
+#~ msgid "Try to enter a non-numeric value"
+#~ msgstr "Essayez d'entrer une valuer non-numérique"
+
+#~ msgid "Quiz config value label"
+#~ msgstr "Exemple de nom de valeur de config"
