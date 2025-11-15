@@ -35,7 +35,7 @@ if ( empty( $_REQUEST['student_id'] ) )
 }
 
 // Student is selected, proceed.
-DrawHeader( _( 'Assessments' ) );
+DrawHeader( _( 'AssessMENTS' ) );
 
 // Program logic goes here.
 
