@@ -58,5 +58,8 @@ COPY . .
 # Run composer install to get PHP dependencies
 RUN composer install --no-dev --no-interaction
 
+# FIX: Set correct permissions for the Apache user
+RUN chown -R www-data:www-data /var/www/html/
+
 # Default command to run Apache
 CMD ["apache2-foreground"]
