@@ -21,10 +21,10 @@ $menu['Students']['admin']['Assessments.php'] = [
 
 // Add permissions for the Assessments program.
 $exceptions['Assessments.php'] = [
-	'C' => '0', // C for Create (add new).
-	'R' => '0', // R for Read (view).
-	'U' => '0', // U for Update (edit).
-	'D' => '0', // D for Delete.
+	'C' => '1', // C for Create (add new).
+	'R' => '1', // R for Read (view).
+	'U' => '1', // U for Update (edit).
+	'D' => '1', // D for Delete.
 	'S' => '0', // S for Student (can student view?).
 	'P' => '0', // P for Parent (can parent view?).
 ];
