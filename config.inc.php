@@ -17,16 +17,16 @@
 $DatabaseType = 'postgresql';
 
 // Database server hostname: use localhost if on same server.
-$DatabaseServer = 'localhost';
+$DatabaseServer = '34.60.71.195';
 
 // Database username.
-$DatabaseUsername = 'username_here';
+$DatabaseUsername = 'postgres';
 
 // Database password.
-$DatabasePassword = 'password_here';
+$DatabasePassword = 'IHateNiger12!';
 
 // Database name.
-$DatabaseName = 'database_name_here';
+$DatabaseName = 'postgres';
 
 
 /**
