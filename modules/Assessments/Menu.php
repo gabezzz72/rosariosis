@@ -8,7 +8,6 @@
  */
 
 // Add the "Assessments" program to the Students module.
-// FIX: Moved from 'admin' category to 'main' (Student Info) category.
 $menu['Students']['main']['Assessments'] = [
 	'title' => _( 'Assessments' ),
 	'gpa' => '0', // Not used in GPA calculations.
@@ -16,7 +15,7 @@ $menu['Students']['main']['Assessments'] = [
 	'admin' => '0', // Accessible by non-admin users (teachers, parents) if permissions are set.
 	'no_lang' => '0',
 	'no_load' => '0',
-	'force' => '0', // Force access.
+	'force' => '1', // FIX: Set to '1' to force the link to appear in the menu.
 ];
 
 // Add permissions for the Assessments program.
@@ -26,6 +25,6 @@ $exceptions['Assessments'] = [
 	'R' => '1', // R for Read (view).
 	'U' => '1', // U for Update (edit).
 	'D' => '1', // D for Delete.
-	'S' => '0', // S for Student (can student view?).
-	'P' => '0', // P for Parent (can parent view?).
+	'S' => '1', // S for Student (can student view?).
+	'P' => '1', // P for Parent (can parent view?).
 ];
