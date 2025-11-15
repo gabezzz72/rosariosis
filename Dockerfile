@@ -44,27 +44,12 @@ WORKDIR /var/www/html
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Argument to allow specifying RosarioSIS version
-ARG ROSARIOSIS_VERSION=master
-ENV ROSARIOSIS_VERSION=${ROSARIOSIS_VERSION}
+# Copy ALL application files from your repository into the image
+# This includes your pre-configured config.inc.php and composer.json
+COPY . .
 
-# Download and install RosarioSIS
-RUN if [ "$ROSARIOSIS_VERSION" = "master" ]; then \
-        curl -fsSL "https://github.com/francoisjacquet/rosariosis/archive/master.zip" -o rosariosis.zip; \
-        unzip rosariosis.zip; \
-        mv rosariosis-master/* .; \
-        rm -rf rosariosis-master rosariosis.zip; \
-    else \
-        curl -fsSL "https://github.com/francoisjacquet/rosariosis/archive/refs/tags/${ROSARIOSIS_VERSION}.zip" -o rosariosis.zip; \
-        unzip rosariosis.zip; \
-        mv "rosariosis-${ROSARIOSIS_VERSION}/"* .; \
-        rm -rf "rosariosis-${ROSARIOSIS_VERSION}" rosariosis.zip; \
-    fi \
-    && composer install --no-dev --no-interaction
+# Run composer install to get PHP dependencies
+RUN composer install --no-dev --no-interaction
 
-# Copy your pre-configured config file directly into the image
-# This requires 'config.inc.php' to exist in your GitHub repo root
-COPY config.inc.php .
-
-# Default command to run Apache (no entrypoint script needed)
+# Default command to run Apache
 CMD ["apache2-foreground"]
