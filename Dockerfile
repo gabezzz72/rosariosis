@@ -6,12 +6,12 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Install system dependencies
 # postgresql-client is for 'psql'
-# libpq-dev, libgd-dev, libintl, etc., are for PHP extensions
+# libpq-dev, libgd-dev, gettext, etc., are for PHP extensions
 RUN apt-get update && apt-get install -y \
     postgresql-client \
     libpq-dev \
     libgd-dev \
-    libintl-dev \
+    gettext \
     libicu-dev \
     libzip-dev \
     zlib1g-dev \
