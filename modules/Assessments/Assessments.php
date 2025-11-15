@@ -9,10 +9,10 @@
  */
 
 // Main entry point.
-// FIX: Paths must be relative to the webroot (Modules.php), not the module directory.
-require_once 'ProgramFunctions/DrawHeader.f.php';
-require_once 'ProgramFunctions/program_init.f.php';
-require_once 'ProgramFunctions/SearchForm.f.php';
+// FIX: Paths must be relative to the module directory, going up two levels.
+require_once '../../ProgramFunctions/DrawHeader.f.php';
+require_once '../../ProgramFunctions/program_init.f.php';
+require_once '../../ProgramFunctions/SearchForm.f.php';
 
 // Ensure a student is selected.
 if ( empty( $_REQUEST['student_id'] ) )
