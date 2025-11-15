@@ -1,0 +1,26 @@
+{
+	"name": "francoisjacquet/parent_agreement",
+	"description": "Parent Agreement plugin for RosarioSIS. Display your school agreement for parents to accept each school year. Students whose parents did not accept the Agreement cannot login.",
+	"keywords": ["parent", "agreement", "login", "school", "student"],
+	"homepage": "https://gitlab.com/francoisjacquet/Parent_Agreement/",
+	"license": "GPL-2.0-or-later",
+	"authors": [{
+		"name": "François Jacquet"
+	}],
+	"type": "rosariosis-plugin",
+	"version": "10.1",
+	"time": "2025-03-27",
+	"require": {
+		"php": ">=5.5.9"
+	},
+	"extra": {
+		"require": {
+			"francoisjacquet/rosariosis": ">=7.3"
+		},
+		"self_url": "https://gitlab.com/francoisjacquet/Parent_Agreement/raw/master/composer.json"
+	},
+	"_comment": [
+		"https://getcomposer.org/doc/04-schema.md",
+		"https://wp-kama.com/note/package-versions-in-composer-json"
+	]
+}
