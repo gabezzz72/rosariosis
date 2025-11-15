@@ -9,12 +9,11 @@
  */
 
 // Main entry point.
-// FIX: Use robust absolute paths based on this file's location.
-// __DIR__ is /var/www/html/modules/Assessments
-// dirname(__DIR__, 2) is /var/www/html
-require_once dirname( __DIR__, 2 ) . '/ProgramFunctions/DrawHeader.f.php';
-require_once dirname( __DIR__, 2 ) . '/ProgramFunctions/program_init.f.php';
-require_once dirname( __DIR__, 2 ) . '/ProgramFunctions/SearchForm.f.php';
+// Use relative path from this file's directory.
+// This is the most reliable method for modules.
+require_once '../../ProgramFunctions/DrawHeader.f.php';
+require_once '../../ProgramFunctions/program_init.f.php';
+require_once '../../ProgramFunctions/SearchForm.f.php';
 
 // Ensure a student is selected.
 if ( empty( $_REQUEST['student_id'] ) )
