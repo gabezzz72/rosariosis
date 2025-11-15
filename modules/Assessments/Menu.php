@@ -12,7 +12,7 @@
 $menu['Students']['admin']['Assessments'] = [
 	'title' => _( 'Assessments' ),
 	'gpa' => '0', // Not used in GPA calculations.
-	'modules' => 'Students', // Belongs to the Students module.
+	// 'modules' => 'Students', // REMOVED: This line was causing the error.
 	'default' => '0', // Not a default program.
 	'admin' => '0', // Accessible by non-admin users (teachers, parents) if permissions are set.
 	'no_lang' => '0',
