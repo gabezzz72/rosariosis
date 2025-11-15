@@ -8,11 +8,10 @@
  */
 
 // Add the "Assessments" program to the Students module.
-// FIX: The key MUST be the module's folder name.
-$menu['Students']['admin']['Assessments'] = [
+// FIX: Moved from 'admin' category to 'main' (Student Info) category.
+$menu['Students']['main']['Assessments'] = [
 	'title' => _( 'Assessments' ),
 	'gpa' => '0', // Not used in GPA calculations.
-	// 'modules' => 'Students', // REMOVED: This line was causing the error.
 	'default' => '0', // Not a default program.
 	'admin' => '0', // Accessible by non-admin users (teachers, parents) if permissions are set.
 	'no_lang' => '0',
