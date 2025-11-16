@@ -8,7 +8,7 @@
  * @subpackage modules
  */
 
-require_once '../../ProgramFunctions/Template.php';
+require_once __DIR__ . '/../../ProgramFunctions/Template.php';
 
 // Set the student
 if ( $_REQUEST['student_id'] === 'new' )
