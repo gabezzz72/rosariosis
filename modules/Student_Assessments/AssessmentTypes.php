@@ -6,8 +6,17 @@
  * @subpackage modules
  */
 
-// Removed all require_once statements.
-// We are assuming RosarioSIS has already loaded DrawHeader(), Common.fnc.php functions, etc.
+// Load the common functions file
+$common_fnc_path = realpath( __DIR__ . '/../../ProgramFunctions/Common.fnc.php' );
+if ( $common_fnc_path )
+{
+    require_once $common_fnc_path;
+}
+else
+{
+    // Fallback or error if path resolution fails
+    require_once '../../ProgramFunctions/Common.fnc.php';
+}
 
 DrawHeader( _( 'Assessment Types' ) );
 
