@@ -7,6 +7,39 @@
  */
 
 global $RosarioPath;
+
+// --- DEBUGGING START ---
+echo '<pre>';
+echo '--- RosarioSIS Module Debug ---<br /><br />';
+
+echo '1. Checking $RosarioPath variable:<br />';
+var_dump( $RosarioPath );
+echo '<br />';
+
+$path_with_slash = rtrim( $RosarioPath, '/' ) . '/';
+echo '2. Normalized path:<br />';
+var_dump( $path_with_slash );
+echo '<br />';
+
+$file_to_check = $path_with_slash . 'ProgramFunctions/DrawHeader.fnc.php';
+echo '3. Checking for file:<br />';
+var_dump( $file_to_check );
+echo '<br />';
+
+echo '4. File exists? (This should be true)<br />';
+var_dump( file_exists( $file_to_check ) );
+echo '<br />';
+
+echo '5. Checking Common.fnc.php:<br />';
+$common_file = $path_with_slash . 'ProgramFunctions/Common.fnc.php';
+var_dump( file_exists( $common_file ) );
+echo '<br />';
+
+echo '--- End Debug ---';
+echo '</pre>';
+exit; // Stop the script from running further
+// --- DEBUGGING END ---
+
 require_once $RosarioPath . 'ProgramFunctions/DrawHeader.fnc.php';
 require_once $RosarioPath . 'ProgramFunctions/Common.fnc.php';
 // Removed require_once for List.php as it's not needed/doesn't exist
