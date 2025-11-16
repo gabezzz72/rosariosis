@@ -6,8 +6,8 @@
  * @subpackage modules
  */
 
-require_once 'ProgramFunctions/List.php';
-require_once 'ProgramFunctions/Update.php';
+require_once '../../ProgramFunctions/List.php';
+require_once '../../ProgramFunctions/Update.php';
 
 DrawHeader( _( 'Assessment Types' ) );
 
