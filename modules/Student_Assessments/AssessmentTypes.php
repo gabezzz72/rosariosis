@@ -6,63 +6,10 @@
  * @subpackage modules
  */
 
-// --- DEBUGGING START ---
-echo '<pre>';
-echo '--- RosarioSIS Module Debug ---<br /><br />';
+// --- DEBUGGING REMOVED ---
 
-echo '1. Current File Directory (__DIR__):<br />';
-var_dump( __DIR__ );
-echo '<br />';
-
-$parent_dir = realpath( __DIR__ . '/../..' );
-echo '2. Assumed Root Directory (result of realpath __DIR__/../..):<br />';
-var_dump( $parent_dir );
-echo '<br />';
-
-if ( $parent_dir )
-{
-    echo '3. Contents of Assumed Root Directory:<br />';
-    var_dump( scandir( $parent_dir ) );
-    echo '<br />';
-
-    $program_functions_dir = $parent_dir . '/ProgramFunctions';
-    echo '4. Checking for ProgramFunctions directory at:<br />';
-    var_dump( $program_functions_dir );
-    echo '<br />';
-
-    echo '5. Does ProgramFunctions directory exist?<br />';
-    var_dump( is_dir( $program_functions_dir ) );
-    echo '<br />';
-
-    if ( is_dir( $program_functions_dir ) )
-    {
-        echo '6. Contents of ProgramFunctions directory:<br />';
-        var_dump( scandir( $program_functions_dir ) );
-        echo '<br />';
-
-        $common_file = $program_functions_dir . '/Common.fnc.php';
-        echo '7. Checking for Common.fnc.php file at:<br />';
-        var_dump( $common_file );
-        echo '<br />';
-
-        echo '8. Does Common.fnc.php file exist?<br />';
-        var_dump( file_exists( $common_file ) );
-        echo '<br />';
-    }
-}
-else
-{
-    echo 'FAILED to resolve parent directory. This is a critical path issue.';
-}
-
-echo '--- End Debug ---';
-echo '</pre>';
-exit; // Stop the script from running further
-// --- DEBUGGING END ---
-
-
-// Load the common functions file
-$common_fnc_path = realpath( __DIR__ . '/../../ProgramFunctions/Common.fnc.php' );
+// Load the common functions file from the correct 'functions' directory
+$common_fnc_path = realpath( __DIR__ . '/../../functions/Common.fnc.php' );
 if ( $common_fnc_path )
 {
     require_once $common_fnc_path;
@@ -70,7 +17,7 @@ if ( $common_fnc_path )
 else
 {
     // Fallback or error if path resolution fails
-    require_once '../../ProgramFunctions/Common.fnc.php';
+    require_once '../../functions/Common.fnc.php';
 }
 
 DrawHeader( _( 'Assessment Types' ) );
