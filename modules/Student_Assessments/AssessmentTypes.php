@@ -7,8 +7,9 @@
  */
 
 global $RosarioPath;
-require_once $RosarioPath . 'ProgramFunctions/List.php';
-require_once $RosarioPath . 'ProgramFunctions/Update.php';
+require_once $RosarioPath . 'ProgramFunctions/DrawHeader.fnc.php';
+require_once $RosarioPath . 'ProgramFunctions/Common.fnc.php';
+// Removed require_once for List.php as it's not needed/doesn't exist
 
 DrawHeader( _( 'Assessment Types' ) );
 
@@ -106,40 +107,73 @@ elseif ( $_REQUEST['modfunc'] === 'add' // 'add' is used for both add and edit
 else
 {
     // List view
+    // Manual List Generation (since ListOutput() is not available)
+
     $types_ret = DBGet( "SELECT assessment_type_id, category, title, sort_order
         FROM student_assessments_types
         WHERE syear='" . UserSyear() . "'
         AND school_id='" . UserSchool() . "'
         ORDER BY sort_order, category, title" );
 
-    $columns = array(
-        'category' => _( 'Category' ),
-        'title' => _( 'Assessment Title' ),
-        'sort_order' => _( 'Sort Order' ),
-    );
+    // Add link
+    echo '<div class="center">' .
+        MakeLink(
+            'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=add&id=new',
+            _( 'Add Assessment Type' )
+        ) .
+    '</div>';
 
-    $link['add']['html'] = array(
-        'title' => _( 'Add Assessment Type' ),
-        'link' => 'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=add&id=new',
-    );
-    $link['remove']['html'] = array(
-        'title' => _( 'Delete Assessment Type' ),
-        'link' => 'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=delete',
-        'extra' => 'confirm',
-    );
-    $link['edit']['html'] = array(
-        'title' => _( 'Edit Assessment Type' ),
-        'link' => 'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=add', // 'add' is used for edit too
-        'val' => 'assessment_type_id',
-    );
+    PopTable( 'header', _( 'Assessment Types' ) );
+    ?>
+    <table class="width-100p">
+        <thead>
+            <tr class="st-alternate">
+                <th><?php echo _( 'Category' ); ?></th>
+                <th><?php echo _( 'Assessment Title' ); ?></th>
+                <th><?php echo _( 'Sort Order' ); ?></th>
+                <th><?php echo _( 'Actions' ); ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            if ( ! $types_ret )
+            {
+                echo '<tr><td colspan="4" class="center">' . _( 'No assessment types created yet.' ) . '</td></tr>';
+            }
+            else
+            {
+                foreach ( (array) $types_ret as $type )
+                {
+                    echo '<tr>';
+                    echo '<td>' . $type['category'] . '</td>';
+                    echo '<td>' . $type['title'] . '</td>';
+                    echo '<td>' . $type['sort_order'] . '</td>';
+                    
+                    // Actions
+                    echo '<td>';
+                    
+                    // Edit Link
+                    echo MakeLink(
+                        'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=add&id=' . $type['assessment_type_id'],
+                        _( 'Edit' )
+                    );
+                    
+                    echo ' | ';
 
-    ListOutput(
-        $types_ret,
-        $columns,
-        'Assessment Type',
-        'Assessment Types',
-        $link,
-        false,
-        array( 'search' => false )
-    );
+                    // Delete Link
+                    echo MakeLink(
+                        'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=delete&id=' . $type['assessment_type_id'],
+                        _( 'Delete' ),
+                        'confirm' // Adds the delete confirmation prompt
+                    );
+
+                    echo '</td>';
+                    echo '</tr>';
+                }
+            }
+            ?>
+        </tbody>
+    </table>
+    <?php
+    PopTable( 'footer' );
 }
