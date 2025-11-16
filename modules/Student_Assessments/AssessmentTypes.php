@@ -6,8 +6,9 @@
  * @subpackage modules
  */
 
-require_once __DIR__ . '/../../ProgramFunctions/List.php';
-require_once __DIR__ . '/../../ProgramFunctions/Update.php';
+global $RosarioPath;
+require_once $RosarioPath . 'ProgramFunctions/List.php';
+require_once $RosarioPath . 'ProgramFunctions/Update.php';
 
 DrawHeader( _( 'Assessment Types' ) );
 
