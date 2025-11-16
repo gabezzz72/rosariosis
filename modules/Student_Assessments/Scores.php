@@ -8,7 +8,10 @@
  * @subpackage modules
  */
 
-require_once __DIR__ . '/../../ProgramFunctions/Template.php';
+global $RosarioPath;
+require_once $RosarioPath . 'ProgramFunctions/DrawHeader.fnc.php';
+require_once $RosarioPath . 'ProgramFunctions/Common.fnc.php';
+require_once $RosarioPath . 'ProgramFunctions/Date.fnc.php';
 
 // Set the student
 if ( $_REQUEST['student_id'] === 'new' )
