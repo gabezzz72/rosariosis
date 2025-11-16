@@ -8,10 +8,8 @@ $_ROSARIO_MENU['students']['Assessments'] = array(
 );
 
 // Admin-only menu for assessment types
-if (User('PROFILE_ID') == 1) {
     $_ROSARIO_MENU['school_setup']['Assessment Types'] = array(
         'title' => _('Assessment Types'),
         'link'  => 'modules/Assessments/AssessmentTypes.php',
         'search' => false
     );
-}
