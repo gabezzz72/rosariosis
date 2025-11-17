@@ -1,111 +1,80 @@
 <?php
 /**
- * The base configurations of RosarioSIS
+ * RosarioSIS config file
  *
- * You can find more information in the INSTALL.md file
  *
  * @package RosarioSIS
  */
 
-/**
- * Database Settings
- *
- * You can get this info from your web host
- */
-
-// Database type: postgresql or mysql.
-$DatabaseType = 'postgresql';
-
-// Database server hostname: use localhost if on same server.
-$DatabaseServer = '34.60.71.195';
-
-// Database username.
-$DatabaseUsername = 'postgres';
-
-// Database password.
-$DatabasePassword = 'IHateNiger12!';
-
-// Database name.
-$DatabaseName = 'postgres';
-
+// ** PostgreSQL database connection ** //
+// Full path to the pg_dump & psql PostgreSQL client utilities,
+// useful for backup & restore.
+// Examples: 'C:/Program Files/PostgreSQL/10/bin/' or '/usr/bin/'
+// Make sure the path ends with a slash.
+// Leave empty to disable backup & restore.
+$rosario_config['PG_PATH'] = '/usr/bin/';
 
 /**
- * Paths
+ * Automatically read database credentials from Koyeb Environment Variables.
+ *
+ * If 'DATABASE_URL' is provided by Koyeb, it will be parsed.
+ * Otherwise, it will look for individual ROSARIO_DB_* variables.
+ * Finally, it will fall back to the default 'localhost' values.
  */
+
+// Defaults
+$db_host = 'localhost';
+$db_port = '5432';
+$db_name = 'rosariosis';
+$db_user = 'rosariosis';
+$db_pass = 'rosariosis';
+
+// Check for Koyeb's DATABASE_URL
+$db_url = getenv('DATABASE_URL');
+
+if ( $db_url )
+{
+    // Parse the URL
+    $db_parts = parse_url( $db_url );
+
+    $db_host = $db_parts['host'] ?? $db_host;
+    $db_port = $db_parts['port'] ?? $db_port;
+    $db_name = ltrim( $db_parts['path'], '/' ) ?? $db_name;
+    $db_user = $db_parts['user'] ?? $db_user;
+    $db_pass = $db_parts['pass'] ?? $db_pass;
+}
+else
+{
+    // Fallback to individual variables if DATABASE_URL is not set
+    $db_host = getenv('ROSARIO_DB_HOST') ?: $db_host;
+    $db_port = getenv('ROSARIO_DB_PORT') ?: $db_port;
+    $db_name = getenv('ROSARIO_DB_NAME') ?: $db_name;
+    $db_user = getenv('ROSARIO_DB_USER') ?: $db_user;
+    $db_pass = getenv('ROSARIO_DB_PASSWORD') ?: $db_pass;
+}
+
+$rosario_config['DB_HOST'] = $db_host;
+$rosario_config['DB_PORT'] = $db_port;
+$rosario_config['DB_NAME'] = $db_name;
+$rosario_config['DB_USER'] = $db_user;
+$rosario_config['DB_PASS'] = $db_pass;
+
+
+// ** School SCEP (certificate enrollment) ** //
+// $rosario_config['SCEP_URL'] = 'https://scep.myschool.org/scep';
+// $rosario_config['SCEP_CHALLENGE'] = 'challenge';
+
+// ** Other schools ** //
+// If you want to run multiple schools with one installation,
+// copy this file to config_SCHOONAME.inc.php
+// (where SCHOONAME is the value of the 'school' parameter in the URL)
+// and edit the database connection info.
 
 /**
- * Full path to the database dump utility for this server
- *
- * pg_dump for PostgreSQL
- * @example /usr/bin/pg_dump
- * @example C:/Progra~1/PostgreSQL/bin/pg_dump.exe
- *
- * mysqldump for MySQL
- * @example /usr/bin/mysqldump
- * @example C:/xampp/mysql/bin/mysqldump.exe
- *
- * mariadb-dump for MariaDB
- * @example /usr/bin/mariadb-dump
+ * Automatically set $RosarioPath.
+ * DO NOT EDIT THIS.
  */
-$DatabaseDumpPath = '';
+$RosarioPath = dirname( __FILE__ ) . '/';
 
-/**
- * Full path to wkhtmltopdf binary file
- *
- * An empty string means wkhtmltopdf will not be called
- * and reports will be rendered in HTML instead of PDF
- *
- * @link http://wkhtmltopdf.org
- *
- * @example /usr/local/bin/wkhtmltopdf
- * @example C:/Progra~1/wkhtmltopdf/bin/wkhtmltopdf.exe
- */
-$wkhtmltopdfPath = '';
-
-
-/**
- * Default school year
- *
- * Do NOT change during installation
- * Change after rollover
- * Should match the database to be able to login
- *
- * @see School > Rollover program
- */
-$DefaultSyear = '2025';
-
-
-/**
- * Email address to receive notifications
- * - new administrator account
- * - new student / user account
- * - new registration
- *
- * Leave empty to not receive email notifications
- */
-$RosarioNotifyAddress = '';
-
-
-/**
- * Email address to receive errors
- * - PHP fatal error
- * - database SQL error
- * - hacking attempts
- *
- * Leave empty to not receive errors
- */
-$RosarioErrorsAddress = '';
-
-
-/**
- * Locales
- *
- * Add other languages you want to support here
- *
- * @see locale/ folder
- *
- * For American, French and Spanish:
- *
- * @example [ 'en_US.utf8', 'fr_FR.utf8', 'es_ES.utf8' ];
- */
-$RosarioLocales = [ 'en_US.utf8' ];
+// Set warning_level to 0 for production, 1 for development.
+$warning_level = 0;
