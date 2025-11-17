@@ -54,7 +54,7 @@ if ( $database_url ) {
     $dbport = '5432';
     $dbname = 'postgres';
     $dbuser = 'postgres';
-    $dbpassword = 'IHateNIger12!';
+    $dbpassword = 'IHateNiger12!';
 }
 
 echo '<br />--- End Debug ---';
