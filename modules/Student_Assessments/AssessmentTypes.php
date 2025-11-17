@@ -8,17 +8,12 @@
 
 // --- DEBUGGING REMOVED ---
 
-// Load the common functions file from the correct 'functions' directory
-$common_fnc_path = realpath( __DIR__ . '/../../functions/Common.fnc.php' );
-if ( $common_fnc_path )
-{
-    require_once $common_fnc_path;
-}
-else
-{
-    // Fallback or error if path resolution fails
-    require_once '../../functions/Common.fnc.php';
-}
+// Load the required functions files based on the new file structure
+require_once 'functions/Get.php'; // For DBGet()
+require_once 'functions/DBQuery.php'; // For DBQuery()
+require_once 'functions/Make.php'; // For MakeLink()
+require_once 'functions/Buttons.php'; // For SubmitButton()
+require_once 'functions/Del.php'; // For DeletePrompt()
 
 DrawHeader( _( 'Assessment Types' ) );
 
