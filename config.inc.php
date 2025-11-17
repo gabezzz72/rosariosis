@@ -1,113 +1,111 @@
 <?php
 /**
- * RosarioSIS Configuration
+ * The base configurations of RosarioSIS
  *
- * This configuration file is designed to work with Koyeb.
- * It automatically parses the DATABASE_URL environment variable.
+ * You can find more information in the INSTALL.md file
+ *
+ * @package RosarioSIS
  */
-
-// --- Database Configuration ---
-
-// KOYEB FIX: The DATABASE_URL is not being set.
-// We are hardcoding the credentials from your fallback.
-// To fix this long-term, link your database service in Koyeb's settings.
-
-$dbhost = '34.60.71.195';
-$dbport = '5432';
-$dbname = 'postgres';
-$dbuser = 'postgres';
-$dbpassword = 'IHateNiger12!';
-
-
-$dbtype = 'pgsql'; // Do not change
-
-
-// --- General Configuration ---
 
 /**
- * Unique identifier for your RosarioSIS instance.
- * @example 'MySchool'
- * @example 'District'
+ * Database Settings
+ *
+ * You can get this info from your web host
  */
-$RosarioPath = '/var/www/html/';
+
+// Database type: postgresql or mysql.
+$DatabaseType = 'postgresql';
+
+// Database server hostname: use localhost if on same server.
+$DatabaseServer = '34.60.71.195';
+
+// Database username.
+$DatabaseUsername = 'postgres';
+
+// Database password.
+$DatabasePassword = 'IHateNiger12!';
+
+// Database name.
+$DatabaseName = 'postgres';
+
 
 /**
- * Unique identifier for your RosarioSIS instance.
- * @example 'MySchool'
- * @example 'District'
+ * Paths
  */
-$DatabaseType = 'PostgreSQL';
 
 /**
- * Should RosarioSIS automatically create the database?
- * Set to true for the first time.
- * Set to false after installation.
+ * Full path to the database dump utility for this server
+ *
+ * pg_dump for PostgreSQL
+ * @example /usr/bin/pg_dump
+ * @example C:/Progra~1/PostgreSQL/bin/pg_dump.exe
+ *
+ * mysqldump for MySQL
+ * @example /usr/bin/mysqldump
+ * @example C:/xampp/mysql/bin/mysqldump.exe
+ *
+ * mariadb-dump for MariaDB
+ * @example /usr/bin/mariadb-dump
  */
-$CreateDatabase = false;
+$DatabaseDumpPath = '';
 
 /**
- * Database Server.
- * @example 'localhost'
+ * Full path to wkhtmltopdf binary file
+ *
+ * An empty string means wkhtmltopdf will not be called
+ * and reports will be rendered in HTML instead of PDF
+ *
+ * @link http://wkhtmltopdf.org
+ *
+ * @example /usr/local/bin/wkhtmltopdf
+ * @example C:/Progra~1/wkhtmltopdf/bin/wkhtmltopdf.exe
  */
-$DatabaseServer = $dbhost;
+$wkhtmltopdfPath = '';
+
 
 /**
- * Database Port.
- * @example '5432'
+ * Default school year
+ *
+ * Do NOT change during installation
+ * Change after rollover
+ * Should match the database to be able to login
+ *
+ * @see School > Rollover program
  */
-$DatabasePort = $dbport;
+$DefaultSyear = '2025';
+
 
 /**
- * Database Name.
- * @example 'rosariosis'
+ * Email address to receive notifications
+ * - new administrator account
+ * - new student / user account
+ * - new registration
+ *
+ * Leave empty to not receive email notifications
  */
-$DatabaseName = $dbname;
+$RosarioNotifyAddress = '';
+
 
 /**
- * Database User.
- * @example 'rosariosis_user'
+ * Email address to receive errors
+ * - PHP fatal error
+ * - database SQL error
+ * - hacking attempts
+ *
+ * Leave empty to not receive errors
  */
-$DatabaseUser = $dbuser;
+$RosarioErrorsAddress = '';
+
 
 /**
- * Database Password.
- * @example 'rosariosis_password'
+ * Locales
+ *
+ * Add other languages you want to support here
+ *
+ * @see locale/ folder
+ *
+ * For American, French and Spanish:
+ *
+ * @example [ 'en_US.utf8', 'fr_FR.utf8', 'es_ES.utf8' ];
  */
-$DatabasePassword = $dbpassword;
-
-
-// --- Other Settings ---
-
-/**
- * Default School.
- * Set the default school by its Title.
- * @example 'My School'
- */
-$DefaultSchool = '';
-
-/**
- * Force HTTPS connection
- * Set to true if you're using an SSL certificate (recommended)
- * Koyeb handles this, so 'true' is safe.
- */
-$force_https = true;
-
-/**
- * Session Name
- * Change this to a unique random string.
- */
-$SessionName = 'RosarioSIS';
-
-/**
- * Error logging
- * Set to 'Off' for production
- */
-$error_logging = 'Off'; // 'On' for debugging, 'Off' for production
-
-/**
- * PHP Locale
- */
-$locale = 'en_US.utf8';
-setlocale( LC_ALL, $locale );
-
-// --- End of Configuration ---
+$RosarioLocales = [ 'en_US.utf8' ];
