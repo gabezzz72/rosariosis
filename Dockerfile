@@ -58,16 +58,13 @@ WORKDIR /var/www/html
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# OPTIMIZATION: Copy only composer files first
-COPY composer.json composer.lock ./
-
-# OPTIMIZATION: Install vendor dependencies
-# This layer is cached as long as composer.json/lock don't change
-RUN composer install --no-dev --no-interaction --no-scripts --no-progress
-
-# Now, copy ALL remaining application files from your repository
-# This includes your pre-configured config.inc.php and your modules/
+# --- FIX: Reverted optimization ---
+# We now copy ALL files first, then run composer install.
+# This works even if composer.lock is not in your repository.
 COPY . .
+
+# Run composer install to get PHP dependencies
+RUN composer install --no-dev --no-interaction --no-scripts --no-progress
 
 # FIX: Set correct permissions for the Apache user
 # This ensures Apache can write to logs/cache (if any) and own all files
