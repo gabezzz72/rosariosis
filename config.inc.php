@@ -11,23 +11,57 @@
 // Automatically parse Koyeb's DATABASE_URL
 $database_url = getenv( 'DATABASE_URL' );
 
+// --- DEBUGGING START ---
+echo '<pre>';
+echo '--- RosarioSIS Config Debug ---<br /><br />';
+
+echo '1. DATABASE_URL value:<br />';
+var_dump( $database_url );
+echo '<br />';
+
 if ( $database_url ) {
     $db_parts = parse_url( $database_url );
 
-    $dbhost = $db_parts['host'] ?? '';
-    $dbport = $db_parts['port'] ?? '5432';
+    echo '2. Parsed URL parts:<br />';
+    var_dump( $db_parts );
+    echo '<br />';
+
+    $dbhost = $db_parts['host'] ?? 'PARSE_ERROR_HOST';
+    $dbport = $db_parts['port'] ?? 'PARSE_ERROR_PORT';
     $dbname = ltrim( $db_parts['path'] ?? '', '/' );
-    $dbuser = $db_parts['user'] ?? '';
-    $dbpassword = $db_parts['pass'] ?? '';
+    $dbuser = $db_parts['user'] ?? 'PARSE_ERROR_USER';
+    $dbpassword = $db_parts['pass'] ?? 'PARSE_ERROR_PASSWORD';
+
+    echo '3. Values being set:<br />';
+    echo "Host: " . htmlspecialchars( $dbhost ) . "<br />";
+    echo "Port: " . htmlspecialchars( $dbport ) . "<br />";
+    echo "DB Name: " . htmlspecialchars( $dbname ) . "<br />";
+    echo "User: " . htmlspecialchars( $dbuser ) . "<br />";
+    
+    // Check if the password is empty or not parsed
+    if ( $dbpassword === 'PARSE_ERROR_PASSWORD' ) {
+        echo "Password: NOT FOUND (parse_url() did not find 'pass')<br />";
+    } elseif ( empty( $dbpassword ) ) {
+        echo "Password: EMPTY (parsed, but the value is an empty string)<br />";
+    } else {
+        echo "Password: FOUND (length: " . strlen( $dbpassword ) . ")<br />";
+    }
+
 } else {
-    // Fallback for local development (if you want)
-    // WARNING: Do not use these in production on Koyeb
+    echo '2. DATABASE_URL is not set or empty. Using fallback.<br />';
+
     $dbhost = '34.60.71.195';
     $dbport = '5432';
     $dbname = 'postgres';
     $dbuser = 'postgres';
-    $dbpassword = 'IHateNiger12!';
+    $dbpassword = 'IHateNIger12!';
 }
+
+echo '<br />--- End Debug ---';
+echo '</pre>';
+exit; // Stop the script from running further
+// --- DEBUGGING END ---
+
 
 $dbtype = 'pgsql'; // Do not change
 
