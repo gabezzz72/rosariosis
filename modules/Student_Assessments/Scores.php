@@ -8,10 +8,10 @@
  * @subpackage modules
  */
 
-global $RosarioPath;
-require_once $RosarioPath . 'ProgramFunctions/DrawHeader.fnc.php';
-require_once $RosarioPath . 'ProgramFunctions/Common.fnc.php';
-require_once $RosarioPath . 'ProgramFunctions/Date.fnc.php';
+// Load the required functions files that EXIST on your server
+require_once __DIR__ . '/../../functions/DBGet.fnc.php'; // For DBGet()
+require_once __DIR__ . '/../../functions/Buttons.php'; // For SubmitButton()
+require_once __DIR__ . '/../../functions/Inputs.php'; // For DateInput(), PrepareDate(), ProperDate()
 
 // Set the student
 if ( $_REQUEST['student_id'] === 'new' )
@@ -100,10 +100,10 @@ if ( ! $types_ret )
     $note = _( 'No assessment types have been created for this school year.' );
     if ( $can_edit )
     {
-         $note .= ' ' . MakeLink(
-            'Modules.php?modname=Student_Assessments/AssessmentTypes.php',
-            _( 'Click here to create them.' )
-         );
+        // FIX: Replaced MakeLink() with raw <a> tag
+         $note .= ' ' . '<a href="' . URLEscape( 'Modules.php?modname=Student_Assessments/AssessmentTypes.php' ) . '">' .
+            _( 'Click here to create them.' ) .
+         '</a>';
     }
     ErrorMessage( array( $note ), 'note' );
 
