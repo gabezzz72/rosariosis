@@ -6,7 +6,40 @@
  * @subpackage modules
  */
 
-// --- DEBUGGING REMOVED ---
+// --- DEBUGGING START ---
+echo '<pre>';
+echo '--- RosarioSIS Module Debug ---<br /><br />';
+
+$functions_dir = realpath( __DIR__ . '/../../functions' );
+echo '1. Checking for functions directory at:<br />';
+var_dump( $functions_dir );
+echo '<br />';
+
+if ( $functions_dir && is_dir( $functions_dir ) )
+{
+    echo '2. Contents of functions/ directory (This is what your server ACTUALLY has):<br />';
+    var_dump( scandir( $functions_dir ) );
+    echo '<br />';
+
+    $common_file = $functions_dir . '/Get.php';
+    echo '3. Checking for Get.php file at:<br />';
+    var_dump( $common_file );
+    echo '<br />';
+
+    echo '4. Does Get.php file exist?<br />';
+    var_dump( file_exists( $common_file ) );
+    echo '<br />';
+}
+else
+{
+    echo '2. FAILED to find the /var/www/html/functions/ directory. This is the root problem.';
+}
+
+echo '--- End Debug ---';
+echo '</pre>';
+exit; // Stop the script from running further
+// --- DEBUGGING END ---
+
 
 // Load the required functions files based on the new file structure
 require_once __DIR__ . '/../../functions/Get.php'; // For DBGet()
