@@ -9,11 +9,11 @@
 // --- DEBUGGING REMOVED ---
 
 // Load the required functions files based on the new file structure
-require_once 'functions/Get.php'; // For DBGet()
-require_once 'functions/DBQuery.php'; // For DBQuery()
-require_once 'functions/Make.php'; // For MakeLink()
-require_once 'functions/Buttons.php'; // For SubmitButton()
-require_once 'functions/Del.php'; // For DeletePrompt()
+require_once __DIR__ . '/../../functions/Get.php'; // For DBGet()
+require_once __DIR__ . '/../../functions/DBQuery.php'; // For DBQuery()
+require_once __DIR__ . '/../../functions/Make.php'; // For MakeLink()
+require_once __DIR__ . '/../../functions/Buttons.php'; // For SubmitButton()
+require_once __DIR__ . '/../../functions/Del.php'; // For DeletePrompt()
 
 DrawHeader( _( 'Assessment Types' ) );
 
