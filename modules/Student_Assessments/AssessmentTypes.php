@@ -6,47 +6,12 @@
  * @subpackage modules
  */
 
-// --- DEBUGGING START ---
-echo '<pre>';
-echo '--- RosarioSIS Module Debug ---<br /><br />';
+// --- DEBUGGING REMOVED ---
 
-$functions_dir = realpath( __DIR__ . '/../../functions' );
-echo '1. Checking for functions directory at:<br />';
-var_dump( $functions_dir );
-echo '<br />';
-
-if ( $functions_dir && is_dir( $functions_dir ) )
-{
-    echo '2. Contents of functions/ directory (This is what your server ACTUALLY has):<br />';
-    var_dump( scandir( $functions_dir ) );
-    echo '<br />';
-
-    $common_file = $functions_dir . '/Get.php';
-    echo '3. Checking for Get.php file at:<br />';
-    var_dump( $common_file );
-    echo '<br />';
-
-    echo '4. Does Get.php file exist?<br />';
-    var_dump( file_exists( $common_file ) );
-    echo '<br />';
-}
-else
-{
-    echo '2. FAILED to find the /var/www/html/functions/ directory. This is the root problem.';
-}
-
-echo '--- End Debug ---';
-echo '</pre>';
-exit; // Stop the script from running further
-// --- DEBUGGING END ---
-
-
-// Load the required functions files based on the new file structure
-require_once __DIR__ . '/../../functions/Get.php'; // For DBGet()
-require_once __DIR__ . '/../../functions/DBQuery.php'; // For DBQuery()
-require_once __DIR__ . '/../../functions/Make.php'; // For MakeLink()
+// Load the required functions files that EXIST on your server
+require_once __DIR__ . '/../../functions/DBGet.fnc.php'; // For DBGet()
 require_once __DIR__ . '/../../functions/Buttons.php'; // For SubmitButton()
-require_once __DIR__ . '/../../functions/Del.php'; // For DeletePrompt()
+require_once __DIR__ . '/../../functions/Prompts.php'; // For DeletePrompt()
 
 DrawHeader( _( 'Assessment Types' ) );
 
@@ -153,11 +118,11 @@ else
         ORDER BY sort_order, category, title" );
 
     // Add link
+    // FIX: Replaced MakeLink() with raw <a> tag
     echo '<div class="center">' .
-        MakeLink(
-            'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=add&id=new',
-            _( 'Add Assessment Type' )
-        ) .
+        '<a href="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=add&id=new' ) . '">' .
+            _( 'Add Assessment Type' ) .
+        '</a>' .
     '</div>';
 
     PopTable( 'header', _( 'Assessment Types' ) );
@@ -190,19 +155,16 @@ else
                     echo '<td>';
                     
                     // Edit Link
-                    echo MakeLink(
-                        'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=add&id=' . $type['assessment_type_id'],
-                        _( 'Edit' )
-                    );
+                    // FIX: Replaced MakeLink() with raw <a> tag
+                    $edit_url = URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=add&id=' . $type['assessment_type_id'] );
+                    echo '<a href="' . $edit_url . '">' . _( 'Edit' ) . '</a>';
                     
                     echo ' | ';
 
                     // Delete Link
-                    echo MakeLink(
-                        'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=delete&id=' . $type['assessment_type_id'],
-                        _( 'Delete' ),
-                        'confirm' // Adds the delete confirmation prompt
-                    );
+                    // FIX: Replaced MakeLink() with raw <a> tag and manual onclick for delete prompt
+                    $delete_url = URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] . '&modfunc=delete&id=' . $type['assessment_type_id'] );
+                    echo '<a href="' . $delete_url . '" onclick="return DeletePrompt();">' . _( 'Delete' ) . '</a>';
 
                     echo '</td>';
                     echo '</tr>';
