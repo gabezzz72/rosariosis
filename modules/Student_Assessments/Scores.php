@@ -19,22 +19,18 @@ require_once __DIR__ . '/../../functions/PopTable.fnc.php'; // For PopTable()
 require_once __DIR__ . '/../../functions/DrawHeader.fnc.php'; // For DrawHeader()
 
 // Set the student
-// FIX: Check if student_id is set before using it
-if ( ! isset( $_REQUEST['student_id'] ) || $_REQUEST['student_id'] === 'new' )
+// FIX: Use SetStudent() to find student from session OR request
+// Then, check if a student was successfully set.
+SetStudent( $_REQUEST['student_id'] ?? '' );
+
+if ( ! Student( 'STUDENT_ID' ) )
 {
-    // Cannot add scores to a new student
     ErrorMessage( array( _( 'You must select a student first.' ) ), 'fatal' );
-}
-else
-{
-    SetStudent( $_REQUEST['student_id'] );
 }
 
 DrawHeader( _( 'Assessments' ) );
 
-// Check permissions
-// Admin can edit, others are read-only
-$can_edit = ( User( 'PROFILE' ) === 'admin' && AllowEdit() );
+$can_edit = AllowEdit();
 
 // Handle form submission
 if ( ! empty( $_POST['values'] )
@@ -44,64 +40,53 @@ if ( ! empty( $_POST['values'] )
     {
         $assessment_score_id = $values['assessment_score_id'];
 
-        if ( empty( $values['score'] ) && empty( $values['assessment_date'] ) && empty( $values['comment'] ) )
-        {
-            // If all fields are empty, delete the record if it exists
-            if ( ! empty( $assessment_score_id ) )
-            {
-                DBQuery( "DELETE FROM student_assessments_scores
-                    WHERE assessment_score_id='" . (int) $assessment_score_id . "'
-                    AND student_id='" . Student( 'STUDENT_ID' ) . "'" );
-            }
-            // If it doesn't exist, do nothing
-        }
-        else
-        {
-            // Format date for SQL
-            $assessment_date = $values['assessment_date'] ?
-                "'" . PrepareDate( $values['assessment_date'] ) . "'" : 'NULL';
+        // Prepare values
+        $assessment_date = PrepareDate( $values['assessment_date'] );
+        $score = $values['score'];
+        $comment = $values['comment'];
 
-            if ( ! empty( $assessment_score_id ) )
+        if ( empty( $assessment_score_id ) )
+        {
+            // Add new score
+            if ( ! empty( $assessment_date ) || ! empty( $score ) || ! empty( $comment ) )
             {
-                // Update existing score
-                DBQuery( "UPDATE student_assessments_scores
-                    SET assessment_date=" . $assessment_date . ",
-                        score='" . $values['score'] . "',
-                        comment='" . $values['comment'] . "',
-                        syear='" . UserSyear() . "'
-                    WHERE assessment_score_id='" . (int) $assessment_score_id . "'
-                    AND student_id='" . Student( 'STUDENT_ID' ) . "'" );
-            }
-            else
-            {
-                // Add new score
                 DBQuery( "INSERT INTO student_assessments_scores
                     (student_id, assessment_type_id, syear, assessment_date, score, comment)
                     VALUES(
                         '" . Student( 'STUDENT_ID' ) . "',
                         '" . (int) $assessment_type_id . "',
                         '" . UserSyear() . "',
-                        " . $assessment_date . ",
-                        '" . $values['score'] . "',
-                        '" . $values['comment'] . "'
+                        " . ( $assessment_date ? "'" . $assessment_date . "'" : 'NULL' ) . ",
+                        '" . $score . "',
+                        '" . $comment . "'
                     )" );
             }
         }
+        else
+        {
+            // Update existing score
+            DBQuery( "UPDATE student_assessments_scores
+                SET assessment_date=" . ( $assessment_date ? "'" . $assessment_date . "'" : 'NULL' ) . ",
+                    score='" . $score . "',
+                    comment='" . $comment . "'
+                WHERE assessment_score_id='" . (int) $assessment_score_id . "'
+                AND student_id='" . Student( 'STUDENT_ID' ) . "'" );
+        }
     }
 
-    // Success message
-    $note[] = _( 'Data saved' );
-    Note( $note );
+    // Refresh page
+    RedirectURL( 'modfunc' );
 }
 
-// Get all assessment types for the current school year
+
+// Get all assessment types
 $types_ret = DBGet( "SELECT assessment_type_id, category, title
     FROM student_assessments_types
     WHERE syear='" . UserSyear() . "'
     AND school_id='" . UserSchool() . "'
     ORDER BY sort_order, category, title" );
 
-if ( ! $types_ret )
+if ( empty( $types_ret ) )
 {
     $note = _( 'No assessment types have been created for this school year.' );
     if ( $can_edit )
@@ -112,115 +97,100 @@ if ( ! $types_ret )
          '</a>';
     }
     ErrorMessage( array( $note ), 'note' );
-
-    if ( ! $can_edit )
-    {
-        // If read-only and no types, nothing to show.
-        exit;
-    }
 }
-
-// Get all scores for this student
-$scores_ret = DBGet( "SELECT assessment_score_id, assessment_type_id,
-    assessment_date, score, comment
-    FROM student_assessments_scores
-    WHERE student_id='" . Student( 'STUDENT_ID' ) . "'
-    AND syear='" . UserSyear() . "'", array(), array( 'assessment_type_id' ) );
-
-// Start form
-echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] . '&student_id=' . Student( 'STUDENT_ID' ) ) . '" method="POST">';
-
-DrawHeader( '', SubmitButton( _( 'Save' ), '', $can_edit ? '' : 'disabled' ) );
-echo '<br />';
-
-// Display table
-$last_category = '';
-
-foreach ( (array) $types_ret as $type )
+else
 {
-    if ( $type['category'] !== $last_category )
+    // Get all scores for this student
+    $scores_ret = DBGet( "SELECT assessment_score_id, assessment_type_id, assessment_date, score, comment
+        FROM student_assessments_scores
+        WHERE student_id='" . Student( 'STUDENT_ID' ) . "'
+        AND syear='" . UserSyear() . "'" );
+
+    // Organize scores by assessment_type_id for easy lookup
+    $scores = array();
+    if ( ! empty( $scores_ret ) )
     {
-        if ( $last_category !== '' )
+        foreach ( $scores_ret as $score )
         {
-            // Close previous table
-            PopTable( 'footer' );
-            echo '<br />';
+            $scores[$score['assessment_type_id']] = $score;
         }
-        PopTable( 'header', $type['category'] );
-        ?>
-        <table class="width-100p fixed-col">
-            <tr class="st-alternate">
-                <th class="width-25p"><?php echo _( 'Assessment' ); ?></th>
-                <th class="width-15p"><?php echo _( 'Date' ); ?></th>
-                <th class="width-20p"><?php echo _( 'Score' ); ?></th>
-                <th><?php echo _( 'Comment' ); ?></th>
-            </tr>
-        <?php
-        $last_category = $type['category'];
     }
 
-    $type_id = $type['assessment_type_id'];
-    $score_data = isset( $scores_ret[$type_id] ) ? $scores_ret[$type_id][1] : array();
+    // Display form
+    echo '<form action="' . URLEscape( 'Modules.php?modname=' . $_REQUEST['modname'] . '&student_id=' . Student( 'STUDENT_ID' ) ) . '" method="POST">';
 
-    // Hidden field for score ID
-    echo '<input type="hidden" name="values[' . $type_id . '][assessment_score_id]" value="' .
-        AttrEscape( $score_data['assessment_score_id'] ) . '">';
-    ?>
-    <tr>
-        <td><?php echo $type['title']; ?></td>
-        <td>
-            <?php
-            if ( $can_edit )
+    $current_category = '';
+
+    foreach ( $types_ret as $type )
+    {
+        $assessment_type_id = $type['assessment_type_id'];
+
+        // Get score data if it exists
+        $score_data = $scores[$assessment_type_id] ?? array();
+        $assessment_score_id = $score_data['assessment_score_id'] ?? '';
+        $assessment_date = $score_data['assessment_date'] ?? '';
+        $score_value = $score_data['score'] ?? '';
+        $comment_value = $score_data['comment'] ?? '';
+
+        // Display category header
+        if ( $type['category'] !== $current_category )
+        {
+            if ( $current_category !== '' )
             {
-                echo DateInput(
-                    $score_data['assessment_date'],
-                    'values[' . $type_id . '][assessment_date]',
-                    '',
-                    false
-                );
+                PopTable( 'footer' );
+                echo '</table>'; // Close the table
             }
-            else
-            {
-                echo ProperDate( $score_data['assessment_date'] );
-            }
+            $current_category = $type['category'];
+            PopTable( 'header', $current_category );
             ?>
-        </td>
-        <td>
+            <table class="width-100p">
+                <tr class="st-alternate">
+                    <th class="width-25p"><?php echo _( 'Assessment' ); ?></th>
+                    <th class="width-15p"><?php echo _( 'Date' ); ?></th>
+                    <th class="width-20p"><?php echo _( 'Score' ); ?></th>
+                    <th class="width-40p"><?php echo _( 'Comment' ); ?></th>
+                </tr>
             <?php
-            if ( $can_edit )
-            {
-                echo '<input type="text" name="values[' . $type_id . '][score]" value="' .
-                    AttrEscape( $score_data['score'] ) . '" class="width-100p">';
-            }
-            else
-            {
-                echo $score_data['score'];
-            }
-            ?>
-        </td>
-        <td>
-            <?php
-            if ( $can_edit )
-            {
-                echo '<textarea name="values[' . $type_id . '][comment]" class="width-100p">' .
-                    $score_data['comment'] . '</textarea>';
-            }
-            else
-            {
-                // Use nl2br to respect line breaks in read-only view
-                echo nl2br( $score_data['comment'] );
-            }
-            ?>
-        </td>
-    </tr>
-    <?php
+        }
+
+        // Display row
+        echo '<tr>';
+        echo '<td>' . $type['title'] . '</td>';
+
+        if ( $can_edit )
+        {
+            // Editable fields for Admin
+            echo '<input type="hidden" name="values[' . $assessment_type_id . '][assessment_score_id]" value="' . $assessment_score_id . '">';
+            
+            echo '<td>' . DateInput( $assessment_date, 'values[' . $assessment_type_id . '][assessment_date]' ) . '</td>';
+            
+            echo '<td><input type="text" name="values[' . $assessment_type_id . '][score]" value="' . AttrEscape( $score_value ) . '" class="width-100p"></td>';
+            
+            echo '<td><textarea name="values[' . $assessment_type_id . '][comment]" class="width-100p">' .
+                $comment_value .
+            '</textarea></td>';
+        }
+        else
+        {
+            // Read-only fields for others
+            echo '<td>' . ( $assessment_date ? ProperDate( $assessment_date ) : '' ) . '</td>';
+            echo '<td>' . $score_value . '</td>';
+            echo '<td>' . nl2br( $comment_value ) . '</td>';
+        }
+
+        echo '</tr>';
+    }
+
+    if ( $current_category !== '' )
+    {
+        PopTable( 'footer' );
+        echo '</table>'; // Close the final table
+    }
+
+    if ( $can_edit )
+    {
+        echo '<br /><div class="center">' . SubmitButton( _( 'Save' ) ) . '</div>';
+    }
+
+    echo '</form>';
 }
-
-if ( $last_category !== '' )
-{
-    // Close final table
-    PopTable( 'footer' );
-}
-
-echo '<br /><div class="center">' . SubmitButton( _( 'Save' ), '', $can_edit ? '' : 'disabled' ) . '</div>';
-echo '</form>';
