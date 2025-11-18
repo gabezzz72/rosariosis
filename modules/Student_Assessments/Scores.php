@@ -12,9 +12,15 @@
 require_once __DIR__ . '/../../functions/DBGet.fnc.php'; // For DBGet()
 require_once __DIR__ . '/../../functions/Buttons.php'; // For SubmitButton()
 require_once __DIR__ . '/../../functions/Inputs.php'; // For DateInput(), PrepareDate(), ProperDate()
+require_once __DIR__ . '/../../functions/User.fnc.php'; // For SetStudent(), Student(), User(), UserSyear(), UserSchool()
+require_once __DIR__ . '/../../functions/ErrorMessage.fnc.php'; // For ErrorMessage(), Note()
+require_once __DIR__ . '/../../functions/AllowEdit.fnc.php'; // For AllowEdit()
+require_once __DIR__ . '/../../functions/PopTable.fnc.php'; // For PopTable()
+require_once __DIR__ . '/../../functions/DrawHeader.fnc.php'; // For DrawHeader()
 
 // Set the student
-if ( $_REQUEST['student_id'] === 'new' )
+// FIX: Check if student_id is set before using it
+if ( ! isset( $_REQUEST['student_id'] ) || $_REQUEST['student_id'] === 'new' )
 {
     // Cannot add scores to a new student
     ErrorMessage( array( _( 'You must select a student first.' ) ), 'fatal' );
